@@ -1,131 +1,54 @@
-function ajaxErrors(jqXHR, textStatus) {
-  //pageLoader.classList.remove('page-loader--show');
-  if (jqXHR.status === 0) {
-    swal.fire("Sin Conexion", "Verifique su conexion a internet!", "error");
-  } else if (jqXHR.status == 404) {
-    swal.fire("Error (404)", "No se encontro la pagina solicitada!", "error");
-  } else if (jqXHR.status == 500) {
-    swal.fire("Error (500)", "Hubo un Error en el Servidor!", "error");
-  } else if (textStatus === 'parsererror') {
-    swal.fire("Error", 'Requested JSON parse failed.', "error");
-  } else if (textStatus === 'timeout') {
-    swal.fire("Error", 'Time out error.', "error");
-  } else if (textStatus === 'abort') {
-    swal.fire("Error", 'Ajax request aborted.', "error");
-  } else {
-    swal.fire("Error", 'Uncaught Error: ' + jqXHR.responseText, "error");
-  }
-  $('#spinner').modal('hide');
+const msgerForm  = get(".msger-inputarea");
+const msgerInput = get(".msger-input");
+const msgerChat  = get(".msger-chat");
+const PERSON_IMG = "img/user.png";
+const chatWith   = get(".chat-with");
+const typing     = get(".typing");
+const chatStatus = get(".chat-status");
+
+msgerForm.addEventListener("submit", event => {
+
+  event.preventDefault();
+
+  const msgText = msgerInput.value;
+  if(!msgText) return;
+
+  msgerInput.value = "";
+
+});
+
+function appendMessage(name, img, side, text, date) {
+
+  const msgHTML = `
+    <div class="msg ${side}-msg">
+      <div class="msg-img" style="background-image: url(${img})"></div>
+
+      <div class="msg-bubble">
+        <div class="msg-info">
+          <div class="msg-info-name">${name}</div>
+          <div class="msg-info-time">${date}</div>
+        </div>
+
+        <div class="msg-text">${text}</div>
+      </div>
+    </div>
+  `;
+
+  msgerChat.insertAdjacentHTML("beforeend", msgHTML);
+  msgerChat.scrollTop += 500;
+
 }
 
-// ---------------------------------------------------------------------------
-function cargaVistaModal(vista, tipoModal = '', datos = null) {
-  $('#spinner').modal('show');
-  $.ajax({
-    url     : vista,
-    type    : 'POST',
-    data    : {
-      'datos' : datos,
-    },
-    headers : {
-      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-    },
-    success : function(data) {
-      $('#tipo-modal').removeClass();
-      switch(tipoModal) {
-        case 'sm':
-          var clases = 'modal-dialog modal-dialog-centered modal-sm';
-          break;
-        case 'lg':
-          var clases = 'modal-dialog modal-dialog-centered modal-lg';
-          break;
-        case 'xl':
-          var clases = 'modal-dialog modal-dialog-centered modal-xl';
-          break;
-        default:
-          var clases = 'modal-dialog modal-dialog-centered';
-          break;
-      };
-      $('#spinner').modal('hide');
-      $('#tipo-modal').addClass(clases);
-      $('.modal-content').html(data);
-    },
-  })
-  .done(function() {
-    $('#ventanaModal').modal('show');
-  })
-  .fail(ajaxErrors);
+function get(selector, root = document) {
+  return root.querySelector(selector);
 }
 
-// ---------------------------------------------------------------------------
-function cargaVistaModalGet(vista, tipoModal = '', datos = null) {
-  $('#spinner').modal('show');
-  $.ajax({
-    url     : vista,
-    type    : 'GET',
-    headers : {
-      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-    },
-    success : function(data) {
-      $('#tipo-modal').removeClass();
-      switch(tipoModal) {
-        case 'sm':
-          var clases = 'modal-dialog modal-dialog-centered modal-sm';
-          break;
-        case 'lg':
-          var clases = 'modal-dialog modal-dialog-centered modal-lg';
-          break;
-        case 'xl':
-          var clases = 'modal-dialog modal-dialog-centered modal-xl';
-          break;
-        default:
-          var clases = 'modal-dialog modal-dialog-centered';
-          break;
-      };
-      $('#spinner').modal('hide');
-      $('#tipo-modal').addClass(clases);
-      $('.modal-content').html(data);
-    },
-  })
-  .done(function() {
-    $('#ventanaModal').modal('show');
-  })
-  .fail(ajaxErrors);
-}
+function formatDate(date) {
+  const d = date.getDate();
+  const mo = date.getDate.Month() + 1;
+  const y = date.getFullYear();
+  const h = "0" + date.getHours();
+  const m = "0" + date.getMinutes();
 
-// ---------------------------------------------------------------------------
-function sendData(metodo, form, csrf, ret) {
-
-  var formData = new FormData($("#"+form)[0]);
-  $.ajax({
-    url         : metodo,
-    type        : 'POST',
-    data        : formData,
-    cache       : false,
-    contentType : false,
-    processData : false,
-    headers     : {
-      'X-CSRF-TOKEN': csrf,
-    },
-    success     : function(resp) {
-      if(resp == 'OK') {
-        userUpdated(ret);
-      }
-    }
-  });
-}
-
-// ---------------------------------------------------------------------------
-function userUpdated(ret) {
-  Swal.fire({
-    timer: 2000,
-    title: 'Usuario actualizado',
-    icon: 'success',
-    confirmButtonText: 'Ok',
-    timerProgressBar: true,
-  }).then((result) => {
-    if(result.value || result.dismiss === swal.DismissReason.timer) {
-      window.location.replace(ret);
-    }
-  })
+  return `${d}/${mo}/${y} ${h.slice(-2)}:${m.slice(-2)}`;
 }

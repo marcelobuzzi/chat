@@ -1,7 +1,7 @@
-<footer class="sticky-footer">
+<footer class="sticky-footer bg-white">
   <div class="container my-auto">
     <div class="copyright text-center my-auto">
-      <span>Copyright &copy; MCC 2023</span>
+      <span>Copyright &copy; Marcelo Buzzi Riera 2023</span>
     </div>
   </div>
 </footer>
