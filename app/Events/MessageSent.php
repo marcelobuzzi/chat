@@ -21,7 +21,7 @@ class MessageSent implements ShouldBroadcast {
   }
 
   public function broadcastOn() {
-    return new PresenceChannel('chat.'.$this->message->chatroom->id);
+    return new PresenceChannel('chat.'.$this->message->chat_id);
   }
 
 }

@@ -16,6 +16,7 @@
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
   <link href="{{asset('sbadmin/css/sb-admin-2.min.css')}}" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" rel="stylesheet">
+  <link href="{{asset('css/app.css')}}" rel="stylesheet">
   <link href="{{asset('css/styles.css')}}" rel="stylesheet">
   @yield('css_personalizado')
 </head>
@@ -71,6 +72,7 @@
   <script src="{{asset('js/jquery-3.6.4.min.js')}}"></script>
   <script src="{{asset('sbadmin/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
   <script src="{{asset('sbadmin/js/sb-admin-2.min.js')}}"></script>
+  <script src="{{asset('js/app.js')}}" defer></script>
   <script src="{{asset('js/functions.js')}}"></script>
   @yield('js_personalizado')
 </body>

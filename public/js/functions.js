@@ -5,6 +5,7 @@ const PERSON_IMG = "img/user.png";
 const chatWith   = get(".chat-with");
 const typing     = get(".typing");
 const chatStatus = get(".chat-status");
+const chat_id    = get("#chat-id");
 
 msgerForm.addEventListener("submit", event => {
 
@@ -12,6 +13,17 @@ msgerForm.addEventListener("submit", event => {
 
   const msgText = msgerInput.value;
   if(!msgText) return;
+
+  axios.post('/chat/message/sent', {
+    'message' : msgText,
+    'chat_id' : chat_id.value
+  }).then(res => {
+    let data         = res.data;
+    let current_date = formatDate(new Date(data.created_at));
+    appendMessage(data.user.lastname + ', ' + data.user.name, PERSON_IMG, 'right', data.content, current_date);
+  }).catch(error => {
+    console.log(error);
+  });
 
   msgerInput.value = "";
 
@@ -39,13 +51,17 @@ function appendMessage(name, img, side, text, date) {
 
 }
 
+Echo.join('chat.' + chat_id.value).listen('MessageEvent', event => {
+  console.log(event);
+})
+
 function get(selector, root = document) {
   return root.querySelector(selector);
 }
 
 function formatDate(date) {
   const d = date.getDate();
-  const mo = date.getDate.Month() + 1;
+  const mo = date.getMonth() + 1;
   const y = date.getFullYear();
   const h = "0" + date.getHours();
   const m = "0" + date.getMinutes();
