@@ -51,6 +51,7 @@ function appendMessage(name, img, side, text, date) {
 
 }
 
+
 Echo.join('chat.' + chat_id.value).listen('MessageEvent', event => {
   console.log(event);
 })
