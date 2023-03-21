@@ -51,9 +51,13 @@ function appendMessage(name, img, side, text, date) {
 
 }
 
-Echo.join('chat.' + chat_id.value).listen('MessageEvent', event => {
+// window.Echo.channel(`chat.${chat_id.value}`).listen('MessageSent', event => {
+//   console.log(event);
+// });
+
+window.Echo.join(`chat.${chat_id.value}`).listen('MessageSent', event => {
   console.log(event);
-})
+});
 
 function get(selector, root = document) {
   return root.querySelector(selector);

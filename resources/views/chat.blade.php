@@ -22,3 +22,7 @@
   </form>
 </section>
 @endsection
+
+@section('js_personalizado')
+<script src="{{asset('js/chat.js')}}"></script>
+@endsection
