@@ -18,6 +18,7 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" rel="stylesheet">
   <link href="{{asset('css/app.css')}}" rel="stylesheet">
   <link href="{{asset('css/styles.css')}}" rel="stylesheet">
+
   @yield('css_personalizado')
 </head>
 
@@ -68,12 +69,10 @@
     </div>
   </div>
 
-  <!-- <script src="{{asset('sbadmin/vendor/jquery/jquery.min.js')}}"></script> -->
   <script src="{{asset('js/jquery-3.6.4.min.js')}}"></script>
   <script src="{{asset('sbadmin/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
   <script src="{{asset('sbadmin/js/sb-admin-2.min.js')}}"></script>
   <script src="{{asset('js/app.js')}}" defer></script>
-  <script src="{{asset('js/functions.js')}}"></script>
   @yield('js_personalizado')
 </body>
 
