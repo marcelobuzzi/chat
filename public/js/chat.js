@@ -14,7 +14,7 @@ msgerForm.addEventListener("submit", event => {
   const msgText = msgerInput.value;
   if(!msgText) return;
 
-  axios.post('/chat/message/sent', {
+  axios.post('/message/sent', {
     'message' : msgText,
     'chat_id' : chat_id.value
   }).then(res => {
@@ -50,14 +50,15 @@ function appendMessage(name, img, side, text, date) {
   msgerChat.scrollTop += 500;
 
 }
+console.log(window);
+window.Echo.channel(`chat.${chat_id.value}`)
+  .listen('MessageSent', event => {
+    console.log(event);
+  });
 
-// window.Echo.channel(`chat.${chat_id.value}`).listen('MessageSent', event => {
+// Echo.channel(`chat.${chat_id.value}`).listen('MessageSent', event => {
 //   console.log(event);
 // });
-
-window.Echo.join(`chat.${chat_id.value}`).listen('MessageSent', event => {
-  console.log(event);
-});
 
 function get(selector, root = document) {
   return root.querySelector(selector);

@@ -11,6 +11,8 @@
 
   <title>@yield('title')</title>
 
+  <script src="{{asset('js/app.js')}}" defer></script>
+
   <link href="{{asset('img/logo.png')}}" type="image/png" rel="icon" sizes="16x16 32x32">
 
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
@@ -69,7 +71,6 @@
     </div>
   </div>
 
-  <script src="{{asset('js/app.js')}}" defer></script>
   <script src="{{asset('js/jquery-3.6.4.min.js')}}"></script>
   <script src="{{asset('sbadmin/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
   <script src="{{asset('sbadmin/js/sb-admin-2.min.js')}}"></script>
